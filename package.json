@@ -1,0 +1,6 @@
+{
+	"name": "bill-tracker",
+	"dependencies": {
+		"vue": "2.5.16"
+	}
+}
