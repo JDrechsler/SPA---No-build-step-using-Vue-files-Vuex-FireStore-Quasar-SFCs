@@ -1,0 +1,1 @@
+# SPA---No-build-step-using-Vue-files-Vuex-FireStore-Quasar-SFCs
