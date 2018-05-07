@@ -1,5 +1,5 @@
 /**
- * The complete Triforce, or one or more components of the Triforce.
+ * Bill interface
  * @typedef {Object} Bill
  * @property {boolean} isPaid    
  * @property {number} dayOfMonth  

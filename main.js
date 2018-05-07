@@ -1,5 +1,5 @@
-import { store } from "./store.js";
-import { billsRef } from "./firestore.js";
+import { store } from "/store.js";
+import { billsRef } from "/firestore.js";
 
 new Vue({
 	el: '#my-app',
