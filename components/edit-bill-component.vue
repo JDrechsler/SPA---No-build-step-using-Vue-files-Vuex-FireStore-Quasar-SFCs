@@ -26,8 +26,19 @@
 				<q-input v-model="updatedBill.imageUrl" type="url"></q-input>
 			</q-field>
 
+			<q-field label="Paid Status:">
+				<q-toggle v-model="updatedBill.isPaid" color='positive'></q-toggle>
+			</q-field>
+
 			<br>
 			<q-btn color='positive' v-close-overlay class="full-width" @click="updateBill(updatedBill)">Save Changes to {{updatedBill.title}}</q-btn>
+			<br>
+			<br>
+			<q-collapsible icon="delete" :label="'Delete ' + updatedBill.title + ' Bill'">
+				<div>
+					<q-btn color='negative' icon='delete' v-close-overlay @click="removeBill(updatedBill)"></q-btn>
+				</div>
+			</q-collapsible>
 
 			<h4>Preview:</h4>
 			<card-comp :propbill="updatedBill"></card-comp>
