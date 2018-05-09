@@ -4,33 +4,33 @@
 		<q-toolbar slot="header">
 			<q-btn flat round dense v-close-overlay icon="keyboard_arrow_left"></q-btn>
 			<q-toolbar-title>
-				Edit {{propbill.title}}
+				Edit {{updatedBill.title}}
 			</q-toolbar-title>
 		</q-toolbar>
 
 		<div class="layout-padding">
 
 			<q-field label="Title:">
-				<q-input v-model="propbill.title" type="text"></q-input>
+				<q-input v-model="updatedBill.title" type="text"></q-input>
 			</q-field>
 
 			<q-field label="Amount:">
-				<q-input v-model="propbill.amount" type="number"></q-input>
+				<q-input v-model="updatedBill.amount" type="number"></q-input>
 			</q-field>
 
 			<q-field label="Day of Month:">
-				<q-input v-model="propbill.dayOfMonth" type="number"></q-input>
+				<q-input v-model="updatedBill.dayOfMonth" type="number"></q-input>
 			</q-field>
 
 			<q-field label="Image Url:">
-				<q-input v-model="propbill.imageUrl" type="url"></q-input>
+				<q-input v-model="updatedBill.imageUrl" type="url"></q-input>
 			</q-field>
 
 			<br>
-			<q-btn icon="add" color='positive' class="full-width" @click="updateBill">Save Changes to {{propbill.title}}</q-btn>
+			<q-btn color='positive' v-close-overlay class="full-width" @click="updateBill(updatedBill)">Save Changes to {{updatedBill.title}}</q-btn>
 
 			<h4>Preview:</h4>
-			<card-comp :propbiller="newBill"></card-comp>
+			<card-comp :propbill="updatedBill"></card-comp>
 		</div>
 
 	</q-modal-layout>
@@ -42,25 +42,28 @@
 // https://jsfiddle.net/mvwcqt43/
 
 export default {
+	props: {
+		/**@type {Bill} */
+		propbill: {
+			type: Object,
+			required: true
+		}
+	},
 	data() {
 		return {
 			/**@type {Bill} */
-			newBill: {
-				isPaid: false,
-				dayOfMonth: 1,
-				imageUrl: 'https://visualpharm.com/assets/432/iOS%20Application%20Placeholder-595b40b75ba036ed117d63a8.svg',
-				title: 'New Bill',
-				amount: 0
-			}
+			updatedBill: {}
 		}
 	},
 	created() {
-
+		this.updatedBill = Object.assign({}, this.propbill);
 	},
 	methods: {
-		updateBill() {
-			if (this.newBill.title.trim()) {
-				console.log('update bill...')
+		updateBill(bill) {
+			if (this.updatedBill.title.trim()) {
+				console.log('update bill', this.updatedBill.title)
+				// console.log(bill.id)
+				// this.$billsRef.doc(bill.id).update(bill)
 				// this.$billsRef.add(this.newBill)
 				// this.newBill.title = 'New Bill'
 			}

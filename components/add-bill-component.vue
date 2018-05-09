@@ -27,10 +27,10 @@
 			</q-field>
 
 			<br>
-			<q-btn icon="add" color='positive' class="full-width" @click="addBill">Add {{newBill.title}}</q-btn>
+			<q-btn icon="add" v-close-overlay color='positive' class="full-width" @click="addBill">Add {{newBill.title}}</q-btn>
 
 			<h4>Preview:</h4>
-			<card-comp :propbiller="newBill"></card-comp>
+			<card-comp :propbill="newBill"></card-comp>
 		</div>
 
 	</q-modal-layout>
@@ -62,7 +62,7 @@ export default {
 		addBill() {
 			if (this.newBill.title.trim()) {
 				this.$billsRef.add(this.newBill)
-				this.newBill.title = 'New Bill'
+				console.log('adding new bill', this.newBill.title)
 			}
 		}
 	}

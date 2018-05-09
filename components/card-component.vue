@@ -1,16 +1,16 @@
 <template>
 	<q-card :class="getDueClass()">
 		<div class="card-biller-due">
-			{{propbiller.dayOfMonth}}
+			{{propbill.dayOfMonth}}
 		</div>
 		<div class="card-biller-image">
-			<img :src="propbiller.imageUrl" />
+			<img :src="propbill.imageUrl" />
 		</div>
 		<div class="card-biller-title">
-			{{propbiller.title}}
+			{{propbill.title}}
 		</div>
 		<div class="card-biller-price" :class='getPriceClass()'>
-			${{propbiller.amount}}
+			${{propbill.amount}}
 		</div>
 	</q-card>
 </template>
@@ -24,47 +24,27 @@ const date = new Date
 export default {
 	props: {
 		/**@type {Bill} */
-		propbiller: {
+		propbill: {
 			required: true,
 			type: Object,
 			default: {}
 		}
 	},
-	data() {
-		return {
-			/**@type {Bill} */
-			// propbiller: {}
-		};
-	},
-	created() {
-		// this.billers.filter(b => b.)
-
-	},
 	methods: {
 		getPriceClass() {
 			return {
-				isPaid: this.propbiller.isPaid,
-				isNotPaid: !this.propbiller.isPaid
+				isPaid: this.propbill.isPaid,
+				isNotPaid: !this.propbill.isPaid
 			};
 		},
 		getDueClass() {
 			return {
-				duePast: !this.propbiller.isPaid && this.propbiller.dayOfMonth < date.getDate(),
-				dueToday: !this.propbiller.isPaid && this.propbiller.dayOfMonth === date.getDate(),
-				dueOneDay: !this.propbiller.isPaid && this.propbiller.dayOfMonth === (date.getDate() + 1),
-				dueTwoDays: !this.propbiller.isPaid && this.propbiller.dayOfMonth === (date.getDate() + 2),
-				dueThreeDays: !this.propbiller.isPaid && this.propbiller.dayOfMonth === (date.getDate() + 3)
+				duePast: !this.propbill.isPaid && this.propbill.dayOfMonth < date.getDate(),
+				dueToday: !this.propbill.isPaid && this.propbill.dayOfMonth === date.getDate(),
+				dueOneDay: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 1),
+				dueTwoDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 2),
+				dueThreeDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 3)
 			}
-		}
-	},
-	computed: {
-		/**@returns {Array<Bill>} */
-		getUpcomingBills() {
-			/**@type {Array<Bill>} */
-			let upcomingBills
-			// upcomingBills.
-
-			return upcomingBills
 		}
 	}
 };

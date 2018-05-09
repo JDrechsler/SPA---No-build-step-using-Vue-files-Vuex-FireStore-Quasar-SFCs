@@ -14,13 +14,13 @@
 				<div v-if='bills.length > 0'>
 
 					<div v-for="bill in unpaidBills" :key="bill.id">
-						<card-comp :propbiller='bill'></card-comp>
+						<card-comp :propbill='bill' @contextmenu.native.prevent="editSelectedBill(bill)"></card-comp>
 					</div>
 
 					<hr>
 
 					<div v-for="bill in paidBills" :key="bill.id">
-						<card-comp :propbiller='bill'></card-comp>
+						<card-comp :propbill='bill' @contextmenu.native.prevent="editSelectedBill(bill)"></card-comp>
 					</div>
 
 				</div>
@@ -35,8 +35,12 @@
 					</q-fab>
 				</q-page-sticky>
 
-				<q-modal v-model="addModalOpened" :content-css="{minWidth: '80vw', minHeight: '80vh'}">
+				<q-modal v-if="addModalOpened" v-model="addModalOpened" :content-css="{minWidth: '80vw', minHeight: '80vh'}">
 					<add-bill-comp></add-bill-comp>
+				</q-modal>
+
+				<q-modal v-if="editModalOpened" v-model="editModalOpened" :content-css="{minWidth: '80vw', minHeight: '80vh'}">
+					<edit-bill-comp :propbill='selectedBill'></edit-bill-comp>
 				</q-modal>
 
 			</q-page>
@@ -53,12 +57,14 @@ export default {
 			message: "Vuefire & Firestore",
 			notificationSupported: false,
 			addModalOpened: false,
-			search: "string"
+			editModalOpened: false,
+			search: "string",
+			/**@type {Bill} */
+			selectedBill: {}
 		};
 	},
 	created() {
 		this.enableNotifications()
-		// this.notifyWithUpcomingBills()
 	},
 	methods: {
 		enableNotifications() {
@@ -92,6 +98,10 @@ export default {
 				//alert("This browser does not support notifications, I am sorry :/")
 				console.log('This browser does not support notifications :/')
 			}
+		},
+		editSelectedBill(/**@type {Bill} */ bill) {
+			this.selectedBill = bill
+			this.editModalOpened = true
 		}
 	},
 	computed: {
