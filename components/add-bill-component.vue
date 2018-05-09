@@ -26,9 +26,6 @@
 				<q-input v-model="newBill.imageUrl" type="url"></q-input>
 			</q-field>
 
-			<!-- <q-field label="Is Paid:">
-				<q-toggle v-model="newBill.isPaid" color="positive" left-label></q-toggle>
-			</q-field>-->
 			<br>
 			<q-btn icon="add" color='positive' class="full-width" @click="addBill">Add {{newBill.title}}</q-btn>
 

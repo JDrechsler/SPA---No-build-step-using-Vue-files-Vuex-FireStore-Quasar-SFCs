@@ -92,24 +92,7 @@ export default {
 				//alert("This browser does not support notifications, I am sorry :/")
 				console.log('This browser does not support notifications :/')
 			}
-		},
-
-		addBiller() {
-
-			console.log("adding test biller");
-			this.$firestore.billers.add({
-				title: "Test new",
-				amount: 0,
-				isPaid: false,
-				dayOfMonth: 2,
-				imageUrl: ""
-			});
-		},
-		deleteBiller(biller) {
-			this.$firestore.billers.doc(biller[".key"]).delete();
-		},
-		presentAddModal() { },
-		presentMoneyOverviewModal() { }
+		}
 	},
 	computed: {
 		/**@returns {Array<Bill>} */
