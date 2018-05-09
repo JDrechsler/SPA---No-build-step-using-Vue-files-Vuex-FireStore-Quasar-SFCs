@@ -9,6 +9,7 @@
 		</q-toolbar>
 
 		<div class="layout-padding">
+			<card-comp :propbill="updatedBill"></card-comp>
 
 			<q-field label="Title:">
 				<q-input v-model="updatedBill.title" type="text"></q-input>
@@ -22,12 +23,12 @@
 				<q-input v-model="updatedBill.dayOfMonth" type="number"></q-input>
 			</q-field>
 
-			<q-field label="Image Url:">
-				<q-input v-model="updatedBill.imageUrl" type="url"></q-input>
-			</q-field>
-
 			<q-field label="Paid Status:">
 				<q-toggle v-model="updatedBill.isPaid" color='positive'></q-toggle>
+			</q-field>
+
+			<q-field label="Image Url:">
+				<q-input v-model="updatedBill.imageUrl" type="url"></q-input>
 			</q-field>
 
 			<br>
@@ -36,12 +37,10 @@
 			<br>
 			<q-collapsible icon="delete" :label="'Delete ' + updatedBill.title + ' Bill'">
 				<div>
-					<q-btn color='negative' icon='delete' v-close-overlay @click="removeBill(updatedBill)"></q-btn>
+					<q-btn color='negative' icon='delete' v-close-overlay @click="deleteBill(updatedBill)"></q-btn>
 				</div>
 			</q-collapsible>
 
-			<h4>Preview:</h4>
-			<card-comp :propbill="updatedBill"></card-comp>
 		</div>
 
 	</q-modal-layout>
@@ -70,11 +69,15 @@ export default {
 		this.updatedBill = Object.assign({}, this.propbill);
 	},
 	methods: {
-		updateBill(bill) {
+		updateBill(/**@type {Bill} */bill) {
 			if (this.updatedBill.title.trim()) {
 				this.$billsRef.doc(bill.id).update(bill)
-				console.log('updated', this.updatedBill.title)
+				console.log('updated', bill.title)
 			}
+		},
+		deleteBill(/**@type {Bill} */bill) {
+			this.$billsRef.doc(bill.id).delete()
+			console.log('deleted', bill.title)
 		}
 	},
 	computed: {

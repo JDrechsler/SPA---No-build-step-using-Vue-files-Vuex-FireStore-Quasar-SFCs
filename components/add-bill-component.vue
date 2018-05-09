@@ -10,6 +10,8 @@
 
 		<div class="layout-padding">
 
+			<card-comp :propbill="newBill"></card-comp>
+
 			<q-field label="Title:">
 				<q-input v-model="newBill.title" type="text"></q-input>
 			</q-field>
@@ -22,15 +24,16 @@
 				<q-input v-model="newBill.dayOfMonth" type="number"></q-input>
 			</q-field>
 
+			<q-field label="Paid Status:">
+				<q-toggle v-model="newBill.isPaid" color='positive'></q-toggle>
+			</q-field>
+
 			<q-field label="Image Url:">
 				<q-input v-model="newBill.imageUrl" type="url"></q-input>
 			</q-field>
 
 			<br>
 			<q-btn icon="add" v-close-overlay color='positive' class="full-width" @click="addBill">Add {{newBill.title}}</q-btn>
-
-			<h4>Preview:</h4>
-			<card-comp :propbill="newBill"></card-comp>
 		</div>
 
 	</q-modal-layout>

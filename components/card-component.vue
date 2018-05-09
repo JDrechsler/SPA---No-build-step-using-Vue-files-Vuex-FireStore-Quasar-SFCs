@@ -1,7 +1,12 @@
 <template>
 	<q-card :class="getDueClass()">
 		<div class="card-biller-due">
-			{{propbill.dayOfMonth}}
+			<div class="due-sign">
+				<q-icon :name="dueIcon"></q-icon>
+			</div>
+			<div class="due-text">
+				{{propbill.dayOfMonth}}
+			</div>
 		</div>
 		<div class="card-biller-image">
 			<img :src="propbill.imageUrl" />
@@ -21,6 +26,7 @@
 
 const date = new Date
 
+
 export default {
 	props: {
 		/**@type {Bill} */
@@ -28,6 +34,15 @@ export default {
 			required: true,
 			type: Object,
 			default: {}
+		}
+	},
+	data() {
+		return {
+			duePast: !this.propbill.isPaid && this.propbill.dayOfMonth < date.getDate(),
+			dueToday: !this.propbill.isPaid && this.propbill.dayOfMonth === date.getDate(),
+			dueOneDay: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 1),
+			dueTwoDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 2),
+			dueThreeDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 3)
 		}
 	},
 	methods: {
@@ -39,12 +54,21 @@ export default {
 		},
 		getDueClass() {
 			return {
-				duePast: !this.propbill.isPaid && this.propbill.dayOfMonth < date.getDate(),
-				dueToday: !this.propbill.isPaid && this.propbill.dayOfMonth === date.getDate(),
-				dueOneDay: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 1),
-				dueTwoDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 2),
-				dueThreeDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 3)
+				duePast: this.duePast,
+				dueToday: this.dueToday,
+				dueOneDay: this.dueOneDay,
+				dueTwoDays: this.dueTwoDays,
+				dueThreeDays: this.dueThreeDays
 			}
+		},
+	},
+	computed: {
+		dueIcon() {
+			if (this.duePast) return 'error_outline'
+			if (this.dueToday) return 'warning'
+			if (this.dueOneDay) return 'notifications_none'
+			if (this.dueTwoDays) return 'notifications_none'
+			if (this.dueThreeDays) return 'notifications_none'
 		}
 	}
 };
@@ -67,11 +91,27 @@ export default {
 }
 
 .card-biller-due {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "biller-due-sign"
+    "card-biller-due"
+    ".";
+}
+
+.due-text {
+  justify-self: center;
+  align-self: center;
   color: rgba(0, 0, 0, 0.54);
   font-size: 16px;
   grid-area: card-biller-due;
+}
+
+.due-sign {
+  font-size: 31px;
   justify-self: center;
   align-self: center;
+  grid-area: biller-due-sign;
 }
 
 .card-biller-image {
