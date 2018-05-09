@@ -61,13 +61,14 @@ export default {
 	methods: {
 		updateBill(bill) {
 			if (this.updatedBill.title.trim()) {
-				console.log('update bill', this.updatedBill.title)
-				// console.log(bill.id)
-				// this.$billsRef.doc(bill.id).update(bill)
-				// this.$billsRef.add(this.newBill)
-				// this.newBill.title = 'New Bill'
+				this.$billsRef.doc(bill.id).update(bill)
+				console.log('updated', this.updatedBill.title)
 			}
 		}
+	},
+	computed: {
+		/**@returns {Array<Bill>} */
+		bills() { return this.$store.state.bills }
 	}
 }
 </script>

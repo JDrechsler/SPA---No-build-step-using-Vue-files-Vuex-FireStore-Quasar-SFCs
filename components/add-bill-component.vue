@@ -50,19 +50,21 @@ export default {
 				dayOfMonth: 1,
 				imageUrl: 'https://visualpharm.com/assets/432/iOS%20Application%20Placeholder-595b40b75ba036ed117d63a8.svg',
 				title: 'New Bill',
-				amount: 0
+				amount: 0,
+				id: 0
 			}
 		}
 	},
 	created() {
 		let today = new Date
 		this.newBill.dayOfMonth = today.getDate()
+		this.newBill.id = this.$billsRef.doc().id
 	},
 	methods: {
 		addBill() {
 			if (this.newBill.title.trim()) {
 				this.$billsRef.add(this.newBill)
-				console.log('adding new bill', this.newBill.title)
+				console.log('added', this.newBill.title)
 			}
 		}
 	}
