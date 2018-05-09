@@ -1,5 +1,3 @@
-import { billsRef } from "./firestore.js";
-
 export var store = new Vuex.Store({
 	strict: true,
 	state: {
@@ -10,10 +8,8 @@ export var store = new Vuex.Store({
 		bills: state => state.bills,
 	},
 	actions: {
-		setBillsRef: Vuexfire.firebaseAction(({
-			bindFirebaseRef
-		}, ref) => {
+		setBillsRef: Vuexfire.firebaseAction(({ bindFirebaseRef }, ref) => {
 			bindFirebaseRef('bills', ref)
-		}),
+		})
 	},
 })

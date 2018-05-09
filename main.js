@@ -1,17 +1,18 @@
 import { store } from "/store.js";
-import { billsRef } from "/firestore.js";
+import { billsRefSorted } from "/firestore.js";
+
+Vue.component('home-component', httpVueLoader('components/home-component.vue'));
+Vue.component('card-comp', httpVueLoader("/components/card-component.vue"));
+Vue.component('add-bill-comp', httpVueLoader("/components/add-bill-component.vue"));
 
 new Vue({
 	el: '#my-app',
 	store,
-	components: {
-		'home-component': httpVueLoader('components/home-component.vue')
-	},
 	data: {
 		isInitialLoading: true
 	},
 	created() {
 		this.isInitialLoading = false
-		this.$store.dispatch('setBillsRef', billsRef)
+		this.$store.dispatch('setBillsRef', billsRefSorted)
 	}
 });

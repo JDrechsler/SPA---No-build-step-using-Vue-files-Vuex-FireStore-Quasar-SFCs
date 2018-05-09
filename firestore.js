@@ -11,4 +11,7 @@ firebase.initializeApp(config)
 
 const db = firebase.firestore()
 
-export var billsRef = db.collection('billers').orderBy("dayOfMonth", "asc")
+export var billsRefSorted = db.collection('billers').orderBy("dayOfMonth", "asc")
+
+var billsRef = db.collection('billers')
+Vue.prototype.$billsRef = db.collection('billers')

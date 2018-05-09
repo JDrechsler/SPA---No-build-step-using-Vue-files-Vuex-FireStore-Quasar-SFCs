@@ -4,7 +4,6 @@
 			<q-toolbar>
 				<q-toolbar-title>
 					Bill Tracker - {{getDateToday}}
-					<!-- <button @click="enableNotifications">Notifications</button> -->
 				</q-toolbar-title>
 			</q-toolbar>
 		</q-layout-header>
@@ -14,40 +13,47 @@
 
 				<div v-if='bills.length > 0'>
 
-					<!-- unpaid bills -->
-					<div v-for="bill in bills" :key="bill.id">
-						<div v-if='!bill.isPaid'>
-							<card-comp :propbiller="bill"></card-comp>
-						</div>
+					<div v-for="bill in unpaidBills" :key="bill.id">
+						<card-comp :propbiller='bill'></card-comp>
 					</div>
 
 					<hr>
 
-					<!-- paid bills -->
-					<div v-for="bill in bills" :key="bill.title">
-						<div v-if='bill.isPaid'>
-							<card-comp :propbiller="bill"></card-comp>
-						</div>
+					<div v-for="bill in paidBills" :key="bill.id">
+						<card-comp :propbiller='bill'></card-comp>
 					</div>
 
 				</div>
 				<div v-else>
 					No bills to show right now.
 				</div>
+
+				<q-page-sticky position="bottom-right" :offset="[18, 18]">
+					<q-fab icon="add" direction="up" color="primary">
+						<q-fab-action @click="addModalOpened=true" color="blue" class="white" icon="add"></q-fab-action>
+						<q-fab-action color="blue" class="white" icon="info"></q-fab-action>
+					</q-fab>
+				</q-page-sticky>
+
+				<q-modal v-model="addModalOpened" :content-css="{minWidth: '80vw', minHeight: '80vh'}">
+					<add-bill-comp></add-bill-comp>
+				</q-modal>
+
 			</q-page>
+
 		</q-page-container>
+
 	</q-layout>
 </template>
 
 <script>
 export default {
-	components: {
-		"card-comp": httpVueLoader("components/card-component.vue")
-	},
 	data() {
 		return {
 			message: "Vuefire & Firestore",
-			notificationSupported: false
+			notificationSupported: false,
+			addModalOpened: false,
+			search: "string"
 		};
 	},
 	created() {
@@ -106,12 +112,17 @@ export default {
 		presentMoneyOverviewModal() { }
 	},
 	computed: {
-		...Vuex.mapState(['bills']),
+		/**@returns {Array<Bill>} */
+		bills() { return this.$store.state.bills },
 		/**@returns {string} Returns a date string */
 		getDateToday() {
 			let today = new Date
 			return today.toDateString()
-		}
+		},
+		/**@returns {Array<Bill>} */
+		paidBills() { return this.bills.filter(u => u.isPaid) },
+		/**@returns {Array<Bill>} */
+		unpaidBills() { return this.bills.filter(p => !p.isPaid) }
 	}
 };
 </script>

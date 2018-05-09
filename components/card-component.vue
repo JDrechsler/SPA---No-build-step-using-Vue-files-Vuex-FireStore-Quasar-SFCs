@@ -50,10 +50,10 @@ export default {
 		getDueClass() {
 			return {
 				duePast: !this.propbiller.isPaid && this.propbiller.dayOfMonth < date.getDate(),
-				dueToday: this.propbiller.dayOfMonth === date.getDate(),
-				dueOneDay: this.propbiller.dayOfMonth === (date.getDate() + 1),
-				dueTwoDays: this.propbiller.dayOfMonth === (date.getDate() + 2),
-				dueThreeDays: this.propbiller.dayOfMonth === (date.getDate() + 3)
+				dueToday: !this.propbiller.isPaid && this.propbiller.dayOfMonth === date.getDate(),
+				dueOneDay: !this.propbiller.isPaid && this.propbiller.dayOfMonth === (date.getDate() + 1),
+				dueTwoDays: !this.propbiller.isPaid && this.propbiller.dayOfMonth === (date.getDate() + 2),
+				dueThreeDays: !this.propbiller.isPaid && this.propbiller.dayOfMonth === (date.getDate() + 3)
 			}
 		}
 	},
@@ -120,32 +120,26 @@ export default {
 }
 
 .isNotPaid {
-  /* color: red; */
   font-weight: 500;
 }
 
 .dueToday {
-  /* color: red; */
   border-right: 6px solid red;
 }
 
 .dueOneDay {
-  /* color: rgb(204, 66, 16); */
   border-right: 6px solid rgb(204, 66, 16);
 }
 
 .dueTwoDays {
   border-right: 6px solid rgb(209, 169, 66);
-  /* color: rgb(209, 169, 66); */
 }
 
 .dueThreeDays {
   border-right: 3px solid rgb(66, 209, 142);
-  /* color: rgb(66, 209, 142); */
 }
 
 .duePast {
-  /* color: red; */
   border: 6px solid red;
 }
 
