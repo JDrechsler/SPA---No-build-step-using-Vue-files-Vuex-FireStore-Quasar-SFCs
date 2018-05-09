@@ -38,11 +38,7 @@ export default {
 	},
 	data() {
 		return {
-			duePast: !this.propbill.isPaid && this.propbill.dayOfMonth < date.getDate(),
-			dueToday: !this.propbill.isPaid && this.propbill.dayOfMonth === date.getDate(),
-			dueOneDay: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 1),
-			dueTwoDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 2),
-			dueThreeDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 3)
+
 		}
 	},
 	methods: {
@@ -54,21 +50,21 @@ export default {
 		},
 		getDueClass() {
 			return {
-				duePast: this.duePast,
-				dueToday: this.dueToday,
-				dueOneDay: this.dueOneDay,
-				dueTwoDays: this.dueTwoDays,
-				dueThreeDays: this.dueThreeDays
+				duePast: !this.propbill.isPaid && this.propbill.dayOfMonth < date.getDate(),
+				dueToday: !this.propbill.isPaid && this.propbill.dayOfMonth === date.getDate(),
+				dueOneDay: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 1),
+				dueTwoDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 2),
+				dueThreeDays: !this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 3)
 			}
 		},
 	},
 	computed: {
 		dueIcon() {
-			if (this.duePast) return 'error_outline'
-			if (this.dueToday) return 'warning'
-			if (this.dueOneDay) return 'notifications_none'
-			if (this.dueTwoDays) return 'notifications_none'
-			if (this.dueThreeDays) return 'notifications_none'
+			if (!this.propbill.isPaid && this.propbill.dayOfMonth < date.getDate()) return 'error_outline'
+			if (!this.propbill.isPaid && this.propbill.dayOfMonth === date.getDate()) return 'warning'
+			if (!this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 1)) return 'notifications_none'
+			if (!this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 2)) return 'info'
+			if (!this.propbill.isPaid && this.propbill.dayOfMonth === (date.getDate() + 3)) return 'info'
 		}
 	}
 };
