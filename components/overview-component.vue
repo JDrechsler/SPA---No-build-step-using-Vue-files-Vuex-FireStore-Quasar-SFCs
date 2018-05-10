@@ -9,6 +9,7 @@
 		</q-toolbar>
 
 		<div class="layout-padding">
+
 			<q-card>
 				<q-list>
 					<q-item>
@@ -16,10 +17,37 @@
 							<q-item-tile color="positive" icon="add" />
 						</q-item-side>
 						<q-item-main>
-							<q-item-tile label>Monthly Income:</q-item-tile>
-							<q-item-tile sublabel>${{monthlyIncome}}</q-item-tile>
+							<q-item-tile label>1. Monthly Income:</q-item-tile>
+							<q-item-tile sublabel>
+
+								<q-input prefix='$' type="number" v-model="firstMonthlyIncome"></q-input>
+
+							</q-item-tile>
 						</q-item-main>
 					</q-item>
+				</q-list>
+			</q-card>
+
+			<q-card>
+				<q-list>
+					<q-item>
+						<q-item-side>
+							<q-item-tile color="positive" icon="add" />
+						</q-item-side>
+						<q-item-main>
+							<q-item-tile label>2. Monthly Income:</q-item-tile>
+							<q-item-tile sublabel>
+
+								<q-input prefix='$' type="number" v-model="secondMonthlyIncome"></q-input>
+
+							</q-item-tile>
+						</q-item-main>
+					</q-item>
+				</q-list>
+			</q-card>
+
+			<q-card>
+				<q-list>
 					<q-item>
 						<q-item-side>
 							<q-item-tile color="red" icon="remove" />
@@ -29,7 +57,7 @@
 							<q-item-tile sublabel>${{getMonthlyAmountBills}}</q-item-tile>
 						</q-item-main>
 					</q-item>
-					<q-card-separator></q-card-separator>
+
 					<q-item>
 						<q-item-side>
 							<q-item-tile color="primary" icon="arrow_forward" />
@@ -53,7 +81,8 @@
 export default {
 	data() {
 		return {
-			monthlyIncome: 2630
+			firstMonthlyIncome: 2630,
+			secondMonthlyIncome: 2000
 		}
 	},
 	methods: {
@@ -69,7 +98,7 @@ export default {
 			}
 			return amountAllBills
 		},
-		getMonthlyMoneyLeft() { return this.monthlyIncome - this.getMonthlyAmountBills }
+		getMonthlyMoneyLeft() { return (this.firstMonthlyIncome + this.secondMonthlyIncome) - this.getMonthlyAmountBills }
 	}
 }
 </script>
@@ -81,9 +110,21 @@ export default {
 
 .q-card {
   background: rgba(239, 239, 218, 0.63);
+  margin-bottom: 20px;
 }
 
 .q-icon {
   font-size: 28px;
+}
+
+.q-if-addon {
+  color: #757575 !important;
+}
+
+input {
+  color: #757575 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 </style>
