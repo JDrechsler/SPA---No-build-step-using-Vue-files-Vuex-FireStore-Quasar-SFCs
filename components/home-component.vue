@@ -61,7 +61,7 @@ export default {
 			notificationSupported: false,
 			addModalOpened: false,
 			editModalOpened: false,
-			overviewModalOpened: true,
+			overviewModalOpened: false,
 			search: "string",
 			/**@type {Bill} */
 			selectedBill: {}
