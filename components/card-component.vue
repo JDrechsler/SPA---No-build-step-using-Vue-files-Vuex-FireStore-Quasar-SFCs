@@ -26,7 +26,6 @@
 
 const date = new Date
 
-
 export default {
 	props: {
 		/**@type {Bill} */
@@ -70,7 +69,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .q-card {
   display: grid !important;
   grid-template-columns: 1fr 2fr 2fr 1fr;
